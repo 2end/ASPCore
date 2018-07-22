@@ -20,6 +20,11 @@ namespace ASPCore
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .ConfigureAppConfiguration((context, configBuilder) => 
+                {
+                    configBuilder.AddJsonFile("appsettings.json");
+                    configBuilder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true);
+                })
                 .Build();
     }
 }

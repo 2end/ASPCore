@@ -14,6 +14,7 @@ namespace ASPCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var connectionString = configuration["ConnectionString"];
         }
 
         public IConfiguration Configuration { get; }
