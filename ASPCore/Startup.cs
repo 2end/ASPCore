@@ -6,15 +6,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace ASPCore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
             var connectionString = configuration["ConnectionString"];
+            logger.LogCritical("{}", configuration["Logging:LogLevel:Default"]);
         }
 
         public IConfiguration Configuration { get; }
