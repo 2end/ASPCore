@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,25 @@ namespace ASPCore
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path == "/conf")
+                {
+                    await context.Response.WriteAsync("Hello .NET Conf");
+                }
+                else
+                {
+                    try
+                    {
+                        await next();
+                    }
+                    catch (Exception ex)
+                    {
+                                               
+                    }
+                }             
+            });
 
             app.UseStaticFiles();
 
